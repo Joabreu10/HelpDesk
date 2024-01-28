@@ -12,7 +12,7 @@ import com.record.helpdesk.services.exceptions.ObjectnotFoundException;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 	
-	@ExceptionHandler
+	@ExceptionHandler(ObjectnotFoundException.class)
 	public ResponseEntity<StandardError> objectnotFoundException (ObjectnotFoundException ex,
 			HttpServletRequest request) {
 		

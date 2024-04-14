@@ -16,7 +16,8 @@ import com.record.helpdesk.services.exceptions.ObjectnotFoundException;
 
 @Service
 public class TecnicoService {
-	
+
+
 	@Autowired
 	private TecnicoRepository tecnicoRepository;
 	@Autowired

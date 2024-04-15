@@ -14,9 +14,10 @@ import com.record.helpdesk.domain.dtos.TecnicoDTO;
 import com.record.helpdesk.repositories.TecnicoRepository;
 import com.record.helpdesk.services.exceptions.ObjectnotFoundException;
 
+import javax.validation.Valid;
+
 @Service
 public class TecnicoService {
-
 
 	@Autowired
 	private TecnicoRepository tecnicoRepository;
@@ -39,6 +40,14 @@ public class TecnicoService {
 		return tecnicoRepository.save(newObj);
 	}
 
+	public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
+		objDTO.setId(id);
+		Tecnico oldObj = findById(id);
+		validaPorCpfEEmail(objDTO);
+		oldObj = new Tecnico(objDTO);
+		return tecnicoRepository.save(oldObj);
+	}
+
 	private void validaPorCpfEEmail(TecnicoDTO objDTO) {
 		Optional <Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
 		if(obj.isPresent() && obj.get().getId() != objDTO.getId()){
@@ -50,5 +59,6 @@ public class TecnicoService {
 			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
 		}
 	}
+
 
 }

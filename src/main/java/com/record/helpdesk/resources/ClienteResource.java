@@ -1,11 +1,8 @@
 package com.record.helpdesk.resources;
 
 import com.record.helpdesk.domain.Cliente;
-import com.record.helpdesk.domain.Tecnico;
 import com.record.helpdesk.domain.dtos.ClienteDTO;
-import com.record.helpdesk.domain.dtos.TecnicoDTO;
 import com.record.helpdesk.services.ClienteService;
-import com.record.helpdesk.services.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +21,13 @@ public class ClienteResource {
 	ClienteService clienteService;
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ClienteDTO> FindById(@PathVariable Integer id){
+	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id){
 		Cliente obj = clienteService.findById(id);
 		return ResponseEntity.ok().body(new ClienteDTO(obj));
 	}
 	
 	@GetMapping
-	public ResponseEntity <List<ClienteDTO>> FindAll(){
+	public ResponseEntity <List<ClienteDTO>> findAll(){
 		List<Cliente> list = clienteService.findAll();
 		List<ClienteDTO> listDTO = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
@@ -55,7 +52,5 @@ public class ClienteResource {
 		return ResponseEntity.noContent().build();
 	}
 
-
-	
 	
 }
